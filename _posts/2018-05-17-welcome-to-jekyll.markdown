@@ -7,20 +7,29 @@ color: rgb(255,90,90)
 cover: '../assets/test.png'
 subtitle: 'C++引用'
 ---
-#include
-using namespace std;
+
 void fun1(int &x){
+
 x++;
+
 }
 void fun2(int x){
+
 x++;
+
 }
 int mian(){
+
 int abc = 100 , xyz = 13;
+
 fun1(xyz); //13+1 = 14
+
 abc = xyz;//abc = 14
+
 fun2(abc); //这里实际上没加
+
 printf(“%d\n”,abc);
+
 }
 
 这里的结果是14
