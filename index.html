@@ -1,107 +1,104 @@
 ---
-permalink: /
+layout: default
+home-title: H2O Theme For Jekyll
+description: 或许是最漂亮的Jekyll主题
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% if site.title %}{{ site.title }}{% else %}{{ site.name }}{% endif %}</title>
-    <meta name="JekyllTheme" content="Fuse Core by Thomas Jensen" />
-    {% if site.robots.description %}<meta name="Description" content="{{ site.robots.description }}" />{% endif %}
-    {% if site.robots.keywords %}<meta name="Keywords" content="{{ site.robots.keywords }}" />{% endif %}
-    {% if site.robots.crawl %}<meta name="Robots" content="{{ site.robots.crawl }}" />{% endif %}
-    <meta name="HandheldFriendly" content="true" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% if site.url %}<link rel="canonical" href="{{ site.url }}">{% endif %}
-    {% include analytics.html %}
 
-    <!-- favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}/images/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseurl }}/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseurl }}/images/favicons/favicon-16x16.png">
-    <link rel="manifest" href="{{ site.baseurl }}/images/favicons/site.webmanifest">
-    <link rel="mask-icon" href="{{ site.baseurl }}/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="{{ site.baseurl }}/images/favicons/favicon.ico">
-    <meta name="msapplication-TileColor" content="#00a300">
-    <meta name="msapplication-config" content="{{ site.baseurl }}/images/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
+{% include header.html %}
 
-    <!-- Stylesheets -->
-    {% comment %} Bootstrap should be the first stylesheet {% endcomment %}
-    <link rel="stylesheet" type="text/css" crossorigin="anonymous"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk">
-    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/theme.css">
-    <link rel="stylesheet" type="text/css" crossorigin="anonymous"
-          href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc">
-    <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin">
-    
-    {% if site.ga and site.ga.cookieconsent %}
-    <!-- Cookie Consent popup to comply with EU cookie law -->
-    <link rel="stylesheet" type="text/css" crossorigin="anonymous"
-          href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css"
-          integrity="sha384-nA7usz4cMKo7RylsCZnpe0V9qx5X7sa011o0OrDzrKUE7Ero1gB48Fjaw6SFxVZe" />
-    <script async crossorigin="anonymous" data-cfasync="false"
-          src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"
-          integrity="sha384-xLPjH6nqG4p/2mu1KJ1t+4KqcvkyXVwBucQtyGK65lDNfKzECxGY/QEYWR+Wompr"></script>
-    <script>
-        window.addEventListener("load", function(){
-          window.cookieconsent.initialise({
-            "cookie": { "expiryDays": 730 },
-            "palette": {
-              "popup": { "background": "#383b75" },
-              "button": { "background": "#f1d600" }
-            },
-            "theme": "classic"
-          });
-        });
-    </script>
-    {% endif %}
-</head>
-<body class="fullscreen-background">
-
-<div class="glass-pane">
-<div class="container fuse-core-content pb-4">
-
-<div class="row pt-sm-4">
-    <div class="col text-center"><img id="avatar" class="my-3 my-sm-4" alt="{{ site.name }}"
-        src="{% if site.avatar %}{% if site.avatar contains '://' %}{{ site.avatar }}{%
-        else %}{{ site.baseurl }}/{{ site.avatar }}{% endif %}{%
-        else %}{{ site.baseurl }}/images/avatar.svg{% endif %}"></div>
+<div
+    class="g-banner home-banner {{ site.theme-color | prepend: 'banner-theme-' }}"
+    data-theme="{{ site.theme-color }}"
+    style="{% if page.header-img %}background: url({{ page.header-img | relative_url }}) no-repeat center center; background-size: cover;{% endif %}"
+>
+    <h2>{{ page.home-title }}</h2>
+    <h3>{{ page.description }}</h3>
 </div>
-<div class="row">
-    <div class="col">
-        <h1 class="text-center font-weight-bold">{{ site.name }}</h1>
-        {% if site.subtitle %}<h3 class="text-center font-weight-light">{{ site.subtitle }}</h3>{% endif %}
+
+<main class="g-container home-content">
+    <div class="article-list">
+        {% for post in paginator.posts %}
+            <article class="article-item">
+                {% if post.cover %}
+                <div class="post-cover">
+                    <a class="post-link" href="{{ post.url | relative_url }}" title="{{ post.title }}"></a>
+                    <img src="{{ post.cover | relative_url }}" href="{{ post.url | relative_url }}" alt="">
+                </div>
+                {% endif %}
+                <section class="post-preview">
+                    <a class="post-link" href="{{ post.url | relative_url }}" title="{{ post.title }}"></a>
+                    <h2 class="post-title">{{ post.title }}</h2>
+                    {% if post.subtitle %}
+                    <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+                    {% endif %}
+                    {% if post.subtitle.size==0 or post.subtitle==nil %}
+                    <p class="post-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 126}}</p>
+                    {% endif %}
+                </section>
+                <footer class="post-meta">
+                    <div class="post-tags">
+                        {% if post.tags.size > 0 %}
+                            {% for tag in post.tags  %}
+                            <a href={{ "tags.html#" | append: tag | relative_url }} class="post-tag">{{ tag }}</a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <time class="post-date" datetime="{{ post.date | date:"%y-%m-%d" }}">{{ post.date | date_to_string }}</time>
+                </footer>
+            </article>
+        {% endfor %}
+
+        {% if paginator.total_pages > 1 %}
+            {% include pageNav.html %}
+        {% endif %}
+
     </div>
-</div>
 
-<div class="row justify-content-center links pt-1 pt-sm-2">
-{% for hash in site.links %}{% for linkInfo in hash %}{% if linkInfo[1].show %}
-    <div class="col-xs-12 col-sm-2 col-lg-1 px-3 px-sm-0 mt-2 mt-sm-3 text-sm-center"><a
-        href="{{ linkInfo[1].href }}"{% if site.ga %}
-        onclick="trackOutboundLink('{{ linkInfo[1].name }}', '{{ linkInfo[1].href }}'); return false;"
-        {% endif %}><i class="{{ linkInfo[1].icon }} fa-fw"></i>
-        <span class="d-inline d-sm-none">{{ linkInfo[1].name }}</span></a></div>
-{% endif %}{% endfor %}{% endfor %}
-</div>
+    <aside class="g-sidebar-wrapper">
+        <div class="g-sidebar">
+            <section class="author-card">
+                <div class="avatar">
+                    <img src="{{ site.avatar | relative_url }}" alt="">
+                </div>
+                <div class="author-name" rel="author">{{ site.author }}</div>
+                <div class="bio">
+                    <p>{{ site.bio }}</p>
+                </div>
+                {% if site.sns.size > 0 %}
+                <ul id="sns-links" class="sns-links">
+                    {% for s in site.sns %}
+                    <li>
+                        <a href="{{ s[1] }}" target="_blank">
+                            <i class="iconfont icon-{{ s[0] }}"></i>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </section>
 
-{% if site.extra_html %}
-<div class="row justify-content-center">
-    <div class="col mt-3 text-sm-center fuse-core-extra">{{ site.extra_html }}</div>
-</div>
-{% endif %}
+            {% if site.recommend-tags and site.tags.size>0 %}
+            <section class="tags-card">
+                {% for tag in site.tags %}
+                    {% if forloop.index > site.recommend-condition-size %}
+                        {% break %}
+                    {% endif %}
+                    <a href="{{ "tags.html#" | append: tag[0] | relative_url }}" class="tag">{{ tag[0]}}</a>
+                {% endfor %}
+            </section>
+            {% endif %}
+        </div>
 
-</div>
-</div>
+        {% if site.search %}
+        <div class="search-card">
+            <input id="search_input" type="text" placeholder="Search..." autocomplete="off">
+            <i class="iconfont icon-search"></i>
+            <div class="search_result"></div>
+        </div>
+        {% endif %}
 
-<footer><div class="container"><div class="row">
-    <div class="col text-center">Built on the <a href="https://github.com/tsjensen/fuse-core">Fuse Core</a>
-    Jekyll theme.</div>
-</div></div></footer>
+    </aside>
 
-</body>
-</html>
+</main>
+
+{% include footer.html %}
