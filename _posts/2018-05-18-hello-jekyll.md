@@ -2,7 +2,7 @@
 layout: post
 title: '力扣 青蛙跳台阶为什么取模 1000000007（评论区复制的）'
 date: 2021-1-27
-author: wym
+author: jekyll
 color: rgb(255,210,32)
 cover: 'http://on2171g4d.bkt.clouddn.com/jekyll-banner.png'
 tags: jekyll
