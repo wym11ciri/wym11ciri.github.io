@@ -13,12 +13,13 @@ void fun1(int &x){
 x++;
 
 }
+
 void fun2(int x){
 
 x++;
 
 }
-int mian(){
+int main(){
 
 int abc = 100 , xyz = 13;
 
