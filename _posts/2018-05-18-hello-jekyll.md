@@ -1,31 +1,37 @@
 ---
 layout: post
-title: 'Hello Jekyll'
-date: 2017-04-18
-author: Jekyll
+title: '力扣 青蛙跳台阶为什么取模 1000000007（评论区复制的）'
+date: 2021-1-27
+author: wym
 color: rgb(255,210,32)
 cover: 'http://on2171g4d.bkt.clouddn.com/jekyll-banner.png'
 tags: jekyll
 ---
 
-> Transform your plain text into static websites and blogs.
 
-# Welcome
 
-## Welcome
 
-### Welcome
+### 大数相乘，大数的排列组合等为什么要取模
 
-This site aims to be a comprehensive guide to Jekyll. We’ll cover topics such as getting your site up and running, creating and managing your content, customizing the way your site works and looks, deploying to various environments, and give you some advice on participating in the future development of Jekyll itself.
+T1000000007是一个质数（素数），对质数取余能最大程度避免结果冲突/重复
+int32位的最大值为2147483647，所以对于int32位来说1000000007足够大。
+int64位的最大值为2^63-1，用最大值模1000000007的结果求平方，不会在int64中溢出。
+所以在大数相乘问题中，因为(a∗b)%c=((a%c)∗(b%c))%c，所以相乘时两边都对1000000007取模，再保存在int64里面不会溢出。
 
-### So what is Jekyll, exactly?Permalink
+这道题为什么要取模，取模前后的值不就变了吗？
 
-Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like [Markdown](https://daringfireball.net/projects/markdown/)) and our [Liquid](https://github.com/Shopify/liquid/wiki) renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server. Jekyll also happens to be the engine behind GitHub Pages, which means you can use Jekyll to host your project’s page, blog, or website from GitHub’s servers for free.
+确实：取模前 f(43) = 701408733, f(44) = 1134903170, f(45) = 1836311903, 但是 f(46) > 2147483647结果就溢出了。
 
-### Helpful HintsPermalink
+_____，取模后 f(43) = 701408733, f(44) = 134903163 , f(45) = 836311896, f(46) = 971215059没有溢出。
 
-Throughout this guide there are a number of small-but-handy pieces of information that can make using Jekyll easier, more interesting, and less hazardous. Here’s what to look out for.
+取模之后能够计算更多的情况，如 f(46)
 
-### Video Test
+这道题的测试答案与取模后的结果一致。
+
+总结一下，这道题要模1000000007的根本原因是标准答案模了1000000007。不过大数情况下为了防止溢出，模1000000007是通用做法，原因见第一点。
+
+关于为什么要取素数作为模
+可以参考：https://flat2010.github.io/2018/04/19/%E6%A8%A1%E8%BF%90%E7%AE%97%E4%B8%AD%E4%B8%BA%E4%BD%95%E8%A6%81%E7%94%A8%E7%B4%A0%E6%95%B0%E4%BD%9C%E4%B8%BA%E6%A8%A1/
+
 
 <iframe type="text/html" width="100%" height="385" src="http://www.youtube.com/embed/gfmjMWjn-Xg" frameborder="0"></iframe>
