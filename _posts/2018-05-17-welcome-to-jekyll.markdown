@@ -7,7 +7,7 @@ color: rgb(255,90,90)
 cover: '../assets/test.png'
 subtitle: 'C++引用'
 ---
-
+<pre name="code" class="c++"> 
 void fun1(int &x){
 
 x++;
@@ -31,7 +31,7 @@ fun2(abc); //这里实际上没加
 printf(“%d\n”,abc);
 
 }
-
+</pre>
 这里的结果是14
 
 指针：指针是一个变量，只不过这个变量存储的是一个地址，指向内存的一个存储单元；
