@@ -19,7 +19,7 @@ NickName: ''
 webtitle: 'cccciri'
 bio: 'jingzhengmeiyongde'
 about: true
-aboutyou: 'your introduction'
+aboutyou: 'Nothing to say~'
 portraits: '/assets/profile.jpeg' # your portraits image file path
 
 # SNS
@@ -71,7 +71,7 @@ livere_uid: 'MTAyMC8zNDI2OS8xMDgwNg==' # MTAyMC8zNDI2OS8xMDgwNg==
 # Gitment评论 OAuth Application
 Gitment: false
 Gitment_owner: 'wym11ciri'  # github用户名
-Gitment_repo: ''  # github博客存放的仓库名
+Gitment_repo: 'wym11ciri.github.io'  # github博客存放的仓库名
 client_id: ''  # 注册 OAuth Application 后获得的 client_id
 client_secret: ''  # 注册 OAuth Application 后获得的 client_secret
 
